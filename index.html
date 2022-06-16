@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monty Hall</title>
+  </head>
+  <body>
+    <div class="info">
+      <a href="http://ucanalytics.com/blogs/bayes-theorem-monty-hall-problem/" target="_blank">?</a>
+    </div>
+
+    <div class="container">
+      <div class="door-container">
+        <div class="door door1"></div>
+        <div class="content-1"></div>
+      </div>
+
+      <div class="door-container">
+        <div class="door door2"></div>
+        <div class="content-2"></div>
+      </div>
+
+      <div class="door-container">
+        <div class="door door3"></div>
+        <div class="content-3"></div>
+      </div>
+    </div>
+
+    <section class="info-container">
+      <p class="info-data"></p>
+      <button id="changeDoorOption">Yes</button>
+      <button id="stayDoorOption">No</button>
+    </section>
+
+    <div class="info-message-container">
+      <h2 class="info-message"></h2>
+      <button class="info-restart">Restart</button>
+    </div>
+
+    <div class="info-result">
+      <p class="door-select">Pick a door!</p>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
