@@ -71,6 +71,7 @@ function openDoor(selectedIndex: number) {
     (door: string, index: number) => door !== "🚗" && index !== selectedIndex
   );
   switchDoorIndex = doors.findIndex(
+    // @ts-ignore
     (door: string, index: number) =>
       index !== selectedIndex && index !== openDoorIndex
   );
