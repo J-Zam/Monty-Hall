@@ -49,9 +49,38 @@
     <p class="door-select">Pick a door!</p>
   </div>
 
-  <pre class="live-result" id="live-result">
-       Total attemps: 0 Wins: 0.00% Looses: 0.00% 
-    </pre>
+  <section class="result-container">
+
+    <div class="changed-result">
+      <p class="label-changed">CHANGE:</p>
+      <div class="bar">
+        <div class="win" id="win-changing">
+          <p id="changePorcentageWin">50%</p>
+          <p id="changeAmountCarsWin">cars: 0</p>
+        </div>
+        <div class="lose" id="lose-changing">
+          <p id="changePorcentageLose">50%</p>
+          <p id="changeAmountCarsLose">sheeps: 0</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="changed-result">
+      <p class="label-stayed">KEEP:</p> 
+      <div class="bar">
+        <div class="win" id="win-staying">
+          <p id="stayPorcentageWin">50%</p>
+          <p id="stayAmountCarsWin">cars: 0</p>
+        </div>
+        <div class="lose" id="lose-staying">
+          <p id="stayPorcentageLose">50%</p>
+          <p id="stayAmountCarsLose">sheeps: 0</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
 
   <script type="module" src="/src/main.ts"></script>
 </body>

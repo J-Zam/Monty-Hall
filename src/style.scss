@@ -1,14 +1,14 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(240, 239, 239);
+  background-color: #f0efef;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  // align-items: center;
-  // min-height: 97vh;
+  align-items: center;
+  min-height: 97vh;
 }
 
-div, pre {
+div {
   user-select: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -19,7 +19,7 @@ div, pre {
 .info {
   position: fixed;
   top: 1rem;
-  right: 1rem;
+  right: 5rem;
   background-color: rgb(150, 150, 222);
   border-radius: 50%;
   width: 3rem;
@@ -27,6 +27,11 @@ div, pre {
   box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.121);
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+
+  @media (min-width: 378px) {
+    top: 1rem;
+    right: 1rem;
+  }
 
   &:hover {
     transform: scale(1.08);
@@ -47,7 +52,7 @@ div, pre {
 
 .simulate {
   position: fixed;
-  top: 5rem;
+  top: 1rem;
   right: 1rem;
   background-color: rgb(150, 150, 222);
   border-radius: 50%;
@@ -56,6 +61,11 @@ div, pre {
   box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.121);
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+
+  @media (min-width: 378px) {
+    top: 5rem;
+    right: 1rem;
+  }
 
   &:hover {
     transform: scale(1.08);
@@ -80,7 +90,11 @@ div, pre {
   flex-direction: row;
   gap: 1.5rem;
   width: 100%;
-  margin-top: 3rem;
+  margin-top: 16rem;
+
+  @media (min-width: 378px) {
+    margin-top: 10rem;
+  }
 
   &.blocked {
     pointer-events: none;
@@ -89,10 +103,14 @@ div, pre {
   .door-container {
     cursor: pointer;
     position: relative;
-    height: 15rem;
+    height: 13rem;
     width: 10rem;
     background-color: rgb(209, 209, 209);
     box-shadow: 0px 0px 0px 4px rgba(117, 116, 116, 0.212) inset;
+
+    @media (min-width: 378px) {
+      height: 15rem;
+    }
 
     &.blocked {
       pointer-events: none;
@@ -117,7 +135,8 @@ div, pre {
     font-size: 3rem;
 
     &.translated {
-      transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(-85deg);
+      transform: perspective(1200px) translateZ(0px) translateX(0px)
+        translateY(0px) rotateY(-85deg);
     }
   }
 
@@ -139,6 +158,10 @@ div, pre {
   min-height: 7.4rem;
   text-align: center;
   display: none;
+
+  @media (min-width: 378px) {
+    margin: 2rem auto 0 auto;
+  }
 
   button {
     background-color: rgb(172, 95, 172);
@@ -196,11 +219,67 @@ div, pre {
   }
 }
 
-.live-result {
-  line-height: .7;
-  font-size: 1.05rem;
-  font-family: Arial, Helvetica, sans-serif;
+.result-container {
   display: flex;
-  justify-content: center;
-  margin-top: 1rem;
+  flex-direction: column;
+  position: absolute;
+  width: 90%;
+  top: 4rem;
+
+  @media (min-width: 378px) {
+    max-width: 20rem;
+    margin: 2rem auto 0 auto;
+    top: -1.5rem;
+    left: 1rem;
+  }
+
+  .changed-result {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+
+  .label-stayed {
+    margin-bottom: 0.2rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+
+  .label-changed {
+    margin-bottom: 0.2rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+
+  .bar {
+    display: flex;
+    height: 2.7rem;
+    color: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    .win {
+      background-color: #a3a4a2;
+      transition: width 0.5s;
+      width: 50%;
+      padding: 0.4rem 0 0 0.5rem;
+
+      p {
+        margin: 0;
+        font-size: 0.85rem;
+      }
+    }
+
+    .lose {
+      background-color: #dc9191;
+      transition: width 0.5s;
+      width: 50%;
+      padding: 0.4rem 0 0 0.5rem;
+
+      p {
+        margin: 0;
+        font-size: 0.85rem;
+      }
+    }
+  }
 }

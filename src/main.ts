@@ -4,21 +4,50 @@ let allDoors: NodeListOf<HTMLElement> = document.querySelectorAll(
   ".container .door-container .door"
 );
 let container: HTMLElement | null = document.querySelector(".container");
-let doorsContainer: HTMLElement | null = document.querySelector(".door-container");
-let dataContainer: HTMLElement | null = document.querySelector(".info-container");
+let doorsContainer: HTMLElement | null =
+  document.querySelector(".door-container");
+let dataContainer: HTMLElement | null =
+  document.querySelector(".info-container");
 let dataInfo: HTMLElement | null = document.querySelector(".info-container p");
-let dataMessage: HTMLElement | null = document.querySelector(".info-message-container");
+let dataMessage: HTMLElement | null = document.querySelector(
+  ".info-message-container"
+);
 let welcomeMessage: HTMLElement | null = document.querySelector(".info-result");
 let restartGame: HTMLElement | null = document.querySelector(".info-restart");
-let stayDoorOption: HTMLElement | null = document.getElementById("stayDoorOption");
-let changeDoorOption: HTMLElement | null = document.getElementById("changeDoorOption");
-let liveResult: HTMLElement | null = document.getElementById("live-result");
+let stayDoorOption: HTMLElement | null =
+  document.getElementById("stayDoorOption");
+let changeDoorOption: HTMLElement | null =
+  document.getElementById("changeDoorOption");
 let simulateBtn: HTMLElement | null = document.getElementById("simulate");
-let totalAttemps = 0;
+
+let changePorcentageWin: HTMLElement | null = document.getElementById("changePorcentageWin");
+let changeAmountCarsWin: HTMLElement | null = document.getElementById("changeAmountCarsWin");
+let changePorcentageLose: HTMLElement | null = document.getElementById("changePorcentageLose");
+let changeAmountCarsLose: HTMLElement | null = document.getElementById("changeAmountCarsLose");
+
+let stayPorcentageWin: HTMLElement | null = document.getElementById("stayPorcentageWin");
+let stayAmountCarsWin: HTMLElement | null = document.getElementById("stayAmountCarsWin");
+let stayPorcentageLose: HTMLElement | null = document.getElementById("stayPorcentageLose");
+let stayAmountCarsLose: HTMLElement | null = document.getElementById("stayAmountCarsLose");
+
+let totalAttempsChanging= 0;
 let winAttemps = 0;
 let looseAttemps = 0;
-let stayTimes = 0;
-let changeTimes = 0;
+
+let totalAttempStaying = 0;
+let winAttempsStaying = 0;
+let loseAttempsStaying = 0;
+
+let carsChange = 0;
+let sheepsChange = 0; 
+let carStay = 0;
+let sheepStay = 0; 
+
+let changeWinBar: HTMLElement | null = document.getElementById("win-changing");
+let changeLoseBar: HTMLElement | null =
+  document.getElementById("lose-changing");
+let stayWinBar: HTMLElement | null = document.getElementById("win-staying");
+let stayLoseBar: HTMLElement | null = document.getElementById("lose-staying");
 
 let door1: HTMLElement | null = document.querySelector(".door1");
 let door2: HTMLElement | null = document.querySelector(".door2");
@@ -42,12 +71,6 @@ stayDoorOption?.addEventListener("click", () => willSwitchDoor(false));
 restartGame?.addEventListener("click", () => restart());
 restartGame?.addEventListener("click", () => restart());
 
-document.addEventListener("DOMContentLoaded", function () {
-  liveResult!.textContent = ` \nWins: 0.00% \n\nLosses: 0.00% 
-  \n\nStaying: 0
-  \nChanging: 0
-  \n\nTotal attemps: 0`;
-});
 
 restart();
 
@@ -92,10 +115,14 @@ function openDoor(selectedIndex: number) {
   );
 
   welcomeMessage!.style.display = "none";
-  dataInfo!.innerHTML = `Do you want to change to door #${switchDoorIndex + 1}?`;
+  dataInfo!.innerHTML = `Do you want to change to door #${
+    switchDoorIndex + 1
+  }?`;
   const openDoor = document.querySelector(`.content-${openDoorIndex + 1}`);
   openDoor!.innerHTML = "🐑";
-  const selectedDoor: HTMLElement | null = document.querySelector(`.door${selectedIndex + 1}`);
+  const selectedDoor: HTMLElement | null = document.querySelector(
+    `.door${selectedIndex + 1}`
+  );
   selectedDoor!.style.border = "4px solid #000";
 
   document
@@ -108,35 +135,43 @@ function openDoor(selectedIndex: number) {
 
 // Function to know if you win or lose
 function willSwitchDoor(option: boolean) {
-  console.log(option)
+  let message = document.querySelector(".info-message");
   let youWon: boolean;
-  totalAttemps++;
-  (option) ? changeTimes++ : stayTimes++;
+
+  option ? totalAttempsChanging++ : totalAttempStaying++;
   const switchDoor = document.querySelector(`.content-${switchDoorIndex + 1}`);
   const selectedDoor = document.querySelector(
     `.content-${selectedDoorIndex + 1}`
   );
 
   youWon = doors[option ? switchDoorIndex : selectedDoorIndex] === "🚗";
-  if (youWon) {
-    (document.querySelector(".info-message")!.textContent = "You win!");
-    winAttemps++;
-  } else {
-    (document.querySelector(".info-message")!.textContent = "You lose!")
-    looseAttemps++;
-  }
+  (youWon) ? message!.textContent = "You won!" : message!.textContent = "You lost!";
+
+  if (option) {
+    (youWon) ? (winAttemps++, carsChange++) : (looseAttemps++, sheepsChange++);
+    changeWinBar!.style.width = `${(winAttemps / totalAttempsChanging) * 100}%`;
+    changeLoseBar!.style.width = `${(looseAttemps / totalAttempsChanging) * 100}%`;
+    changePorcentageWin!.textContent = `${((winAttemps / totalAttempsChanging) * 100).toFixed(2)}%`;
+    changePorcentageLose!.textContent = `${((looseAttemps / totalAttempsChanging) * 100).toFixed(2)}%`;
+    changeAmountCarsWin!.textContent = `Cars: ${carsChange}`;
+    changeAmountCarsLose!.textContent = `Sheeps: ${sheepsChange}`;
+  };
+  
+  if (!option) {
+    (youWon) ? (winAttempsStaying++, carStay++) : (loseAttempsStaying++, sheepStay++);
+    stayWinBar!.style.width = `${(winAttempsStaying / totalAttempStaying) * 100}%`;
+    stayLoseBar!.style.width = `${(loseAttempsStaying / totalAttempStaying) * 100}%`;
+    stayPorcentageWin!.textContent = `${((winAttempsStaying / totalAttempStaying) * 100).toFixed(2)}%`;
+    stayPorcentageLose!.textContent = `${((loseAttempsStaying / totalAttempStaying) *100).toFixed(2)}%`;
+    stayAmountCarsWin!.textContent = `Cars: ${carStay}`;
+    stayAmountCarsLose!.textContent = `Sheeps: ${sheepStay}`;
+  };
+  
 
   let finalDoor: HTMLElement | null = document.querySelector(
     `.door${(option ? switchDoorIndex : selectedDoorIndex) + 1}`
   );
   finalDoor!.style.backgroundColor = youWon ? "#77dd77" : "#ff6961";
-
-
-  liveResult!.textContent = ` \nWins: ${((winAttemps / totalAttemps) * 100).toFixed(2)}%
-                              \nLosses: ${((looseAttemps / totalAttemps) * 100).toFixed(2)}%
-                              \n\nStaying: ${stayTimes}
-                              \nChanging: ${changeTimes}
-                              \n\nTotal attemps: ${totalAttemps}`;
 
   selectedDoor!.textContent = doors[selectedDoorIndex];
   switchDoor!.textContent = doors[switchDoorIndex];
@@ -153,22 +188,19 @@ function willSwitchDoor(option: boolean) {
 
 async function simulate() {
   const doorsToChoose = [door1, door2, door3];
-  const options = [true, false];
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 200; i++) {
     let randomDoorIndex = Math.floor(Math.random() * 3);
-    
-    let optionIndex = Math.floor(Math.random() * 2);
+
     doorsToChoose[randomDoorIndex]?.click();
+    (i < 100) ? willSwitchDoor(true) : willSwitchDoor(false);
     await sleep(100);
-    willSwitchDoor(options[optionIndex]);
-    await sleep(100);
-    restart()
+    restart();
   }
-};
+}
 
 function sleep(ms: number) {
   return new Promise((resolve) => {
-    setTimeout(resolve, ms)
-  })
-};
+    setTimeout(resolve, ms);
+  });
+}
