@@ -1,8 +1,8 @@
-### Monty-Hall problem 🚪
+### 🔴 Monty Hall Paradox 
 
 The Monty Hall problem is a famous, seemingly paradoxical problem in conditional probability and reasoning using Bayes' theorem. 
 Information affects your decision that at first glance seems as though it shouldn't.
 
-🔗 [more information here](http://ucanalytics.com/blogs/bayes-theorem-monty-hall-problem/)
+![Captura](https://user-images.githubusercontent.com/51100407/187031309-8d0bf16b-3804-4111-8408-81d8e73e00f0.PNG)
 
-![captura](https://user-images.githubusercontent.com/51100407/169341037-06ae6da9-4436-4077-9b13-4d027dccc8dc.png)
+🔗 More information: [http://ucanalytics.com](http://ucanalytics.com/blogs/bayes-theorem-monty-hall-problem/)
